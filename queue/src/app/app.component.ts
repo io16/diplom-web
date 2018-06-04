@@ -11,10 +11,11 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.getStream().subscribe();
+    // this.getStream().subscribe();
   }
   quotes: String;
   url: string = 'http://127.0.0.1:8080/events';
+  title: string = 'Diploma';
 
   getStream(): Observable<Array<String>> {
     console.debug("start");
