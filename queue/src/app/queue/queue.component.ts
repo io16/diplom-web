@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/internal/Observable";
 import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
+import {AdviceService} from "../service/advice.service";
 
 @Component({
   selector: 'app-queue',
@@ -9,7 +10,8 @@ import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
 })
 export class QueueComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adviceService: AdviceService) {
+  }
 
   ngOnInit() {
   }
@@ -21,7 +23,11 @@ export class QueueComponent implements OnInit {
     'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-  public model: any;
+  public startDate: any;
+  public endDate: any;
+  public teachers: any;
+  public groups: any;
+  public advices: any[];
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -30,4 +36,21 @@ export class QueueComponent implements OnInit {
       map(term => term.length < 2 ? []
         : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
+
+  findAdvices() {
+    // console.log(Date.parse(`${this.startDate.year}-` ).);
+     this.adviceService.getAdvices(1, this.startDate, this.endDate)
+     .subscribe( r=> {
+       this.advices = r;
+     });
+  }
+
+  reserveAdvice() {
+
+  }
+
+  cancelReservation() {
+
+  }
+
 }

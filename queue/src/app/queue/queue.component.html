@@ -13,16 +13,18 @@
     <li>limits to 10 results</li>
   </ul>
 
-  <label for="typeahead-basic">Search for a state:</label>
-  <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
-  <hr>
-  <pre>Model: {{ model | json }}</pre>
+  <label for="teachers">Search for a state:</label>
+  <input id="teachers" type="text" class="form-control" placeholder="ПІБ викладача" [(ngModel)]="teachers" [ngbTypeahead]="search"/>
+  <label for="groups">Search for a state:</label>
+  <input  id="groups" type="text" class="form-control"  placeholder="Назва групи" [(ngModel)]="groups" [ngbTypeahead]="search"/>
 
   <form class="form-inline">
     <div class="form-group">
       <div class="input-group">
-        <input class="form-control" placeholder="yyyy-mm-dd"
-               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        <label> з дати
+          <input class="form-control"  placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+        </label>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
             <i class="far fa-calendar-alt"></i>
@@ -30,7 +32,77 @@
         </div>
       </div>
     </div>
-  </form>s
+  </form>
+
+  <form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <label> по дату
+        <input class="form-control"  placeholder="yyyy-mm-dd"
+               name="dp" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
+      </label>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+          <i class="far fa-calendar-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  </form>
+  <button type="button" class="btn btn-success" (click)="findAdvices()">Пошук</button>
   <hr/>
-  <pre>Model: {{ model | json }}</pre>
+
+  list of advices / on click show details.
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Тип</th>
+      <th scope="col">Аудиторія</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let advice of advices">
+      <td> {{advice.startDate}}</td>
+      <td> {{advice.endDate}}</td>
+      <td> {{advice.type}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+
+
+  <!--<div *ngIf=""></div>-->
+  Дата: Викладач: Аудиторія: Тип: Консультація одного студента
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Час</th>
+      <th scope="col">Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Вільно  </td>
+      <td><button class="btn btn-success" (click)="findAdvices()"> Зареєструватися</button> </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+    </tr>
+    </tbody>
+  </table>
 </div> <!-- /container -->

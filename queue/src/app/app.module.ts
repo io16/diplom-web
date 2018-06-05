@@ -9,6 +9,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 import { LoginComponent } from './login/login.component';
 import { QueueComponent } from './queue/queue.component';
+import {HttpClientModule} from "@angular/common/http";
 // import {Angular2FontawesomeModule} from "angular2-fontawesome";
 
 
@@ -23,6 +24,7 @@ import { QueueComponent } from './queue/queue.component';
   imports: [
     NgbModule.forRoot(),
     FormsModule,
+    HttpClientModule,
     // Angular2FontawesomeModule,
     BrowserModule,
     AppRoutingModule
