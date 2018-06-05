@@ -110,5 +110,14 @@
     <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
     <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
   </div>
+  <ul>
+    <li><code>debounceTime</code> operator</li>
+    <li>kicks in only if 2+ characters typed</li>
+    <li>limits to 10 results</li>
+  </ul>
 
+  <label for="typeahead-basic">Search for a state:</label>
+  <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
+  <hr>
+  <pre>Model: {{ model | json }}</pre>
 </div> <!-- /container -->
