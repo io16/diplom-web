@@ -22,13 +22,17 @@ export class QueueComponent implements OnInit {
     'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
     'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming', 'ssssssssssssssssssssssssssssssssssssssssssss'];
   public startDate: any;
   public endDate: any;
   public teachers: any;
   public groups: any;
   public advices: any[];
+  public detailAdvice: any;
 
+
+  public isCollapsed = false;
+  public showAdviceId;
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
@@ -36,6 +40,19 @@ export class QueueComponent implements OnInit {
       map(term => term.length < 2 ? []
         : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
+
+
+  getAdviceById(adviceId: number) {
+    console.log(adviceId);
+    this.showAdviceId = adviceId;
+    this.isCollapsed = !this.isCollapsed
+    this.adviceService.getAdviceById(adviceId)
+      .subscribe( a =>
+      {
+        console.dir(a);
+        this.detailAdvice = a
+      })
+  }
 
   findAdvices() {
     // console.log(Date.parse(`${this.startDate.year}-` ).);

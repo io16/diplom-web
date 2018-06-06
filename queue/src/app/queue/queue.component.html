@@ -4,7 +4,8 @@
   <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
 
   <h3>Five grid tiers</h3>
-  <p>There are five tiers to the Bootstrap grid system, one for each range of devices we support. Each tier starts at a minimum viewport size and automatically applies to the larger devices unless overridden.</p>
+  <p>There are five tiers to the Bootstrap grid system, one for each range of devices we support. Each tier starts at a
+    minimum viewport size and automatically applies to the larger devices unless overridden.</p>
 
 
   <ul>
@@ -14,15 +15,17 @@
   </ul>
 
   <label for="teachers">Search for a state:</label>
-  <input id="teachers" type="text" class="form-control" placeholder="ПІБ викладача" [(ngModel)]="teachers" [ngbTypeahead]="search"/>
+  <input id="teachers" type="text" class="form-control" placeholder="ПІБ викладача" [(ngModel)]="teachers"
+         [ngbTypeahead]="search"/>
   <label for="groups">Search for a state:</label>
-  <input  id="groups" type="text" class="form-control"  placeholder="Назва групи" [(ngModel)]="groups" [ngbTypeahead]="search"/>
+  <input id="groups" type="text" class="form-control" placeholder="Назва групи" [(ngModel)]="groups"
+         [ngbTypeahead]="search"/>
 
   <form class="form-inline">
     <div class="form-group">
       <div class="input-group">
         <label> з дати
-          <input class="form-control"  placeholder="yyyy-mm-dd"
+          <input class="form-control" placeholder="yyyy-mm-dd"
                  name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
         </label>
         <div class="input-group-append">
@@ -35,45 +38,65 @@
   </form>
 
   <form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <label> по дату
-        <input class="form-control"  placeholder="yyyy-mm-dd"
-               name="dp" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
-      </label>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
-          <i class="far fa-calendar-alt"></i>
-        </button>
+    <div class="form-group">
+      <div class="input-group">
+        <label> по дату
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
+        </label>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+            <i class="far fa-calendar-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   </form>
   <button type="button" class="btn btn-success" (click)="findAdvices()">Пошук</button>
   <hr/>
 
   list of advices / on click show details.
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Дата</th>
-      <th scope="col">Тип</th>
-      <th scope="col">Аудиторія</th>
-    </tr>
-    </thead>
-    <tbody>
 
-    <tr *ngFor="let advice of advices">
-      <td> {{advice.startDate}}</td>
-      <td> {{advice.endDate}}</td>
-      <td> {{advice.type}}</td>
-    </tr>
+  <div class="container">
+    <div class="row">
+      <div class="col">#</div>
+      <div class="col">Дата</div>
+      <div class="col">Тип</div>
+      <div class="col">Аудиторія</div>
+    </div>
+  </div>
 
-    </tbody>
-  </table>
+    <div *ngFor="let advice of advices" >
+      <div class="row" (click)="getAdviceById(advice.id)">
+        <div class="col">{{advice.id}}</div>
+        <div class="col">{{advice.startDate}}</div>
+        <div class="col">{{advice.endDate}}</div>
+        <div class="col">{{advice.type}}</div>
+      </div>
+      <div *ngIf="isCollapsed && showAdviceId == advice.id">
+        <div class="card">
+          <div class="card-body">
 
+            <div *ngFor="let detail of detailAdvice">
+              start :
+              {{detail.reservedStartDate}}
+              end :
+              {{detail.reservedEndDate}}
+              <p *ngIf="!detail.studentId"> Статус Вільно</p>
+              <p *ngIf="detail.studentId"> Статус Занято</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <p>
+    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" >
+      Toggle
+    </button>
+  </p>
 
 
   <!--<div *ngIf=""></div>-->
@@ -90,8 +113,10 @@
     <tr>
       <th scope="row">1</th>
       <td>Mark</td>
-      <td>Вільно  </td>
-      <td><button class="btn btn-success" (click)="findAdvices()"> Зареєструватися</button> </td>
+      <td>Вільно</td>
+      <td>
+        <button class="btn btn-success"> Зареєструватися</button>
+      </td>
     </tr>
     <tr>
       <th scope="row">2</th>
