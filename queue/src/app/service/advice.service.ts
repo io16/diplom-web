@@ -16,7 +16,7 @@ export class AdviceService {
     // return {id:[1,2]};
   }
 
-  getAdviceById(adviceId)  : Observable<any[]> {
+  getAdviceById(adviceId) : Observable<any[]> {
     return this.http.get<any[]>("http://127.0.0.1:8084/advice/student?advice_id=" +adviceId);
   }
 }

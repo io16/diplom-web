@@ -1,0 +1,62 @@
+<div id="create-advice-container" class="container">
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <!--<div class="col-1">-->
+        <label> з дати
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+
+        </label>
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+          </button>
+        </div>
+
+      </div>
+     Час початку <ngb-timepicker [(ngModel)]="startTime"></ngb-timepicker>
+      Час Завершення  <ngb-timepicker [(ngModel)]="endTime"></ngb-timepicker>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        Тип консультації :
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><span *ngIf="adviceType == 1"> Cтудент</span>
+                                                                                      <span *ngIf="adviceType == 10">Група</span> </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item" (click)="adviceType = 1">Cтудент</button>
+          <button class="dropdown-item" (click)="adviceType = 10">Група</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf=" adviceType == 10">
+    <div class="col">
+      <label for="groups-list">Назва групи</label>
+      <ng-select id="groups-list" placeholder="Select some items"
+                 [items]="groupNames"
+                 [(ngModel)]="selectedGroups"
+                 [closeOnSelect]="false"
+                 [multiple]="true">
+      </ng-select>
+    </div>
+  </div>
+
+  <div *ngIf="adviceType == 1">
+    <label for="durationPerStudent">
+      Кількість хвилин на одного студента
+    </label><input id="durationPerStudent" type="text" class="form-control" [(ngModel)]="durationPerStudent" value="10" required="required">
+  </div>
+
+  <label for="class-room">
+    Аудиторія
+  </label>
+  <input id="class-room" class="form-control" [(ngModel)]="classRoom" >
+
+  <button class="btn btn-success" type="submit" (click)="createAdvice()"> Створити консультацію</button>
+
+</div>
