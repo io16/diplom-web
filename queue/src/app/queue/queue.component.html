@@ -2,12 +2,12 @@
 
   <div class="row">
     <div class="col"><label for="teachers-search">ПІБ викладача</label>
-      <input id="teachers-search" type="text" class="form-control" placeholder="ПІБ викладача" [(ngModel)]="teachers"
+      <input id="teachers-search" type="text" class="form-control" placeholder="ПІБ викладача" [ngModel]="teachers"
              [ngbTypeahead]="search"/>
     </div>
     <div class="col">
       <label for="groups-search">Назва групи</label>
-      <input id="groups-search" type="text" class="form-control" placeholder="Назва групи" [(ngModel)]="groups"
+      <input id="groups-search" type="text" class="form-control" placeholder="Назва групи"
              [ngbTypeahead]="search"/>
     </div>
   </div>

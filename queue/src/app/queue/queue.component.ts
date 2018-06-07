@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/internal/Observable";
 import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
 import {AdviceService} from "../service/advice.service";
+import {GroupService} from "../service/group.service";
 
 @Component({
   selector: 'app-queue',
@@ -10,23 +11,21 @@ import {AdviceService} from "../service/advice.service";
 })
 export class QueueComponent implements OnInit {
 
-  constructor(private adviceService: AdviceService) {
+  constructor(private adviceService: AdviceService,  private groupService:GroupService) {
+    this.groupService.getGroups().subscribe(g => {
+      this.groups = g;
+      this.groupNames = g.map(g=> g.name)
+    });
   }
 
   ngOnInit() {
+
   }
-   states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-    'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-    'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-    'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-    'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming', 'ssssssssssssssssssssssssssssssssssssssssssss'];
+  public groups: any;
+  public groupNames :String[];
   public startDate: any;
   public endDate: any;
   public teachers: any;
-  public groups: any;
   public advices: any[];
   public detailAdvice: any;
 
@@ -40,7 +39,7 @@ export class QueueComponent implements OnInit {
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
-        : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        : this.groups.map(g=> g.name).filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
 
 
