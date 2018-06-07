@@ -1,5 +1,5 @@
-body {
-  padding-top: 2rem;
+#queue-container {
+  padding-top: 5rem;
   padding-bottom: 2rem;
 }
 
@@ -24,4 +24,18 @@ h3 {
 hr {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+#teachers-search  {
+  width: 100%;
+}
+
+
+#groups-search  {
+  width: 100%;
+}
+
+#search-advice {
+  margin-top: 10px;
+ margin-left: 100%;
 }

@@ -33,6 +33,8 @@ export class QueueComponent implements OnInit {
 
   public isCollapsed = false;
   public showAdviceId;
+
+  public hasAdvices = true;
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
@@ -58,6 +60,7 @@ export class QueueComponent implements OnInit {
     // console.log(Date.parse(`${this.startDate.year}-` ).);
      this.adviceService.getAdvices(1, this.startDate, this.endDate)
      .subscribe( r=> {
+      this.hasAdvices = r.length > 0;
        this.advices = r;
      });
   }
